@@ -14,7 +14,7 @@ class Email implements Message {
     String addressTo;
     String message;
 
-    public Email(String addressFrom, String addressTo, String message) {
+    Email(String addressFrom, String addressTo, String message) {
         this.addressFrom = addressFrom;
         this.addressTo = addressTo;
         this.message = message;

@@ -6,8 +6,8 @@ import static org.junit.Assert.*;
 
 public class RepoImplTest {
 
-    Repo repo = new RepoImpl();
-    Message msg = new SMS("+1", "+2", "test message");
+    private Repo repo = new RepoImpl();
+    private Message msg = new SMS("+1", "+2", "test message");
 
     @Test
     public void saveMessage() {
