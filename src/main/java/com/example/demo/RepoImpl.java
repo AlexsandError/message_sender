@@ -7,8 +7,8 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class RepoImpl implements Repo {
 
-    AtomicLong counter = new AtomicLong(0L);
-    Map<Long, Message> store = new ConcurrentHashMap<>();
+    private AtomicLong counter = new AtomicLong(0L);
+    private Map<Long, Message> store = new ConcurrentHashMap<>();
 
     @Override
     public long saveMessage(Message msg) {
@@ -21,5 +21,10 @@ public class RepoImpl implements Repo {
     @Override
     public Collection<Message> getAll() {
         return store.values();
+    }
+
+    @Override
+    public Message getById(long id) {
+        return store.get(id);
     }
 }

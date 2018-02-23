@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +10,7 @@ import java.net.URI;
 import java.util.Collection;
 
 @RestController
+@Log
 public class Controller {
 
     @Autowired
@@ -19,21 +21,24 @@ public class Controller {
         return repo.getAll();
     }
 
+    @GetMapping("/get/{id}")
+    @ResponseBody Message getById(@PathVariable long id) {
+        return repo.getById(id);
+    }
+
     @PostMapping("/sms")
     ResponseEntity<?> sendSMS(@RequestBody SMS sms) {
-        System.out.println(sms);
         long id = repo.saveMessage(sms);
-
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
+        log.fine(() -> "a new SMS was sent: " + sms);
+        URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/get/{id}").buildAndExpand(id).toUri();
         return ResponseEntity.created(uri).build();
     }
 
     @PostMapping("/email")
     ResponseEntity<?> sendEmail(@RequestBody Email email) {
-        System.out.println(email);
         long id = repo.saveMessage(email);
-
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
+        log.fine(() -> "a new Email was sent: " + email);
+        URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/get/{id}").buildAndExpand(id).toUri();
         return ResponseEntity.created(uri).build();
     }
 }
