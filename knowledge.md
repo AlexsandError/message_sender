@@ -1,0 +1,2 @@
+1. Set an environment variable called `CMDER_ROOT` to your root Cmder folder (in my case `C:\Program Files (x86)\Cmder`). It seems to be important that this does not have quotes around it because they mess with concatenation in the init script.
+2. In your IntelliJ terminal settings, use `"cmd" /k ""%CMDER_ROOT%\vendor\init.bat""` as the Shell path. The double-double-quotes are intentional, as they counteract the missing double quotes in the environment variable.
